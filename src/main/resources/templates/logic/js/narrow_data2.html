@@ -1,0 +1,50 @@
+<script type="text/javascript" th:fragment="content" xmlns:th="http://www.thymeleaf.org" th:inline="text"> 
+	
+	var PORTION_START_INDEX = 0;
+	var PORTION_NUMBER = 4;
+	var PORTION_SIZE = 10;
+
+  	function DataPortion(startIndexValue, numberValue, sizeValue, aggregateDataValue){
+	  	var portion = {
+				labels: null,
+		    	humidity: null,
+		    	temperature: null,
+		    	pressure: null,
+	  		}
+	 
+	 	var portionStartIndex = startIndexValue;
+	  	var portionNumber = numberValue;
+	  	var portionSize = sizeValue;
+	  	var aggregateData = aggregateDataValue;
+	  
+	  	this.get = function(){
+		  	for (var prop in portion){
+			  	if (portion.hasOwnProperty(prop)){
+				  portion[prop] = sliceDataBundle(aggregateData, prop);			
+			  	}
+		  	}
+		  	return portion;
+	  	}
+	  	
+	  	function sliceDataBundle(aggregateData, property){
+	  		console.log(JSON.stringify(aggregateData));
+		  	if (!aggregateData.hasOwnProperty(property)){
+			  	console.log('AgregateDate has not property: ' + property);
+			  	return null;
+		  	}
+		  	return aggregateData[property].slice(portionStartIndex, portionSize);
+	  	}
+	  
+	  	this.sliceDataBundle = function (aggregateData, property){
+	  		console.log(JSON.stringify(aggregateData));
+		  	if (!aggregateData.hasOwnProperty(property)){
+			  	console.log('AgregateDate has not property: ' + property);
+			  	return null;
+		  	}
+		  	var data = aggregateData[property];
+		  	return data.slice(portionStartIndex, portionSize);
+	  	}
+  }
+  
+  var dataPortion = new DataPortion(PORTION_START_INDEX, PORTION_NUMBER, PORTION_SIZE, aggregateData);
+</script>

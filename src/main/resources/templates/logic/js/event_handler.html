@@ -1,0 +1,100 @@
+<script type="text/javascript" th:fragment="content" xmlns:th="http://www.thymeleaf.org"> 
+	
+	function ChartHandler(chartDataValue){
+		var chartData = chartDataValue;
+		var ctx = document.getElementById("myChart").getContext("2d");
+		var chart = null;
+		
+		this.drawPreviousSet = function(){
+			console.log("Prev");
+			chartData.statePreviousSet();
+			reDraw();
+		}
+		
+		this.drawNextSet = function(){
+			console.log("Next");
+			chartData.stateNextSet();
+			reDraw();
+		}
+		
+		function reDraw(){
+			if (chart != null){
+				chart.destroy();
+			}
+			draw();
+		}
+		
+		this.draw = function(){
+			draw();
+		}
+		
+		function draw(){
+			var data = chartData.get();
+			chart = new Chart(ctx, {
+			    type: 'bar',
+			    data: data,
+			    options: {
+			        responsive: false,
+			        /*title: {
+			            display: true,
+			            text: 'Week Weather Forecast'
+			        },*/
+			        hover: {
+			            mode: 'index',
+			            intersect: true
+			        },
+			        tooltips: {
+			        	mode: 'index',
+			            intersect: true,
+			            callbacks: {
+			                label: function (t, d) {
+			                    if (t.datasetIndex === 0) {
+			                        return 'Humidity: ' + t.yLabel + ' %';
+			                    }
+			                    else if (t.datasetIndex === 1){
+			                    	return 'Temperature: ' + (t.yLabel*4) + ' ℉';
+			                    }
+			                    else if (t.datasetIndex === 2){
+			                    	return 'Pressure: ' + (t.yLabel*10) + ' Pa';
+			                    }  
+			                }
+			            }
+			        },
+			        scales: {
+			            yAxes: [{
+			            	gridLines:{
+			            		display: true,
+			            		drawBorder: true
+			            	},
+							scaleLabel:{
+								display: false
+							},
+							ticks: {
+								display: false,
+								beginAtZero: true
+							}
+			            }]
+			        }
+			    }
+			});
+			$(window).myMixedChart = chart;
+		}
+	}
+	
+	var chartHandler = new ChartHandler(chartData);
+	//@TODO: try with document ready if this loads chat faster
+	$(window).on("load", function() {
+	    console.log(JSON.stringify(dataPortion.get()));
+	    chartHandler.draw();
+	});
+	
+	$(".btn.btn-info.btn-arrow-left").click(function(){
+		console.log("Prev");
+		chartHandler.drawPreviousSet();
+	});
+	
+	$(".btn.btn-success.btn-arrow-right").click(function(){
+		console.log("Next");
+		chartHandler.drawNextSet();
+	});
+</script>

@@ -1,0 +1,86 @@
+<script type="text/javascript" th:fragment="content" xmlns:th="http://www.thymeleaf.org" th:inline="javascript"> 
+	
+	var PORTION_INITIAL_START_INDEX = 0;
+	var PORTION_START_ORDINAL_NUMBER = 0;
+	var PORTION_SIZE = 10;
+	var NUMBER_OF_PORTIONS = 4;
+	var PORTION_END_ORDINAL_NUMBER = NUMBER_OF_PORTIONS - 1;
+
+  	function DataPortion(aggregateDataValue){
+	  	var portion = {
+				labels: null,
+		    	humidity: null,
+		    	temperature: null,
+		    	pressure: null,
+	  		}
+	 
+	 	var startIndex = PORTION_INITIAL_START_INDEX;
+	  	var ordinalNumber = PORTION_START_ORDINAL_NUMBER;
+	  	var size = PORTION_SIZE;
+	  	var numberOfPortions = NUMBER_OF_PORTIONS;
+	  	var aggregateData = aggregateDataValue;
+	  
+	  	this.get = function(){
+	  		console.log("gettin values for -- ordinalNumber: " + ordinalNumber + ", startIndex: " + startIndex);
+		  	for (var property in portion){
+			  	if (portion.hasOwnProperty(property)){
+				  portion[property] = sliceDataBundle(property);			
+			  	}
+		  	}
+		  	console.log("Portion content: " + JSON.stringify(portion));
+		  	return portion;
+	  	}
+	  	
+	  	function sliceDataBundle(property){
+		  	if (!aggregateData.hasOwnProperty(property)){
+		  		console.log('AgregateDate has not property: ' + property);
+			  	return null;
+		  	}
+		  	console.log('aggregateData for: ' + property + ' is: ' + JSON.stringify(aggregateData[property]));
+		  	var lastIndex = startIndex + size;
+		  	console.log(JSON.stringify(aggregateData[property].slice(startIndex, lastIndex)));
+		  	return aggregateData[property].slice(startIndex, lastIndex);
+	  	}
+	  	
+	  	this.setNextPortion = function(){
+	  		ordinalNumber = getNextPortionNumber();
+	  		ordinalNumber = validatePortionNumber(ordinalNumber);
+	  		startIndex = calculateStartIndex();
+	  		//console.log("new values for -- ordinalNumber: " + ordinalNumber + ", startIndex: " + startIndex);
+	  	}
+	  	
+	  	function getNextPortionNumber(){
+	  		return ++ordinalNumber;
+	  	}
+	  	
+		this.setPreviousPortion = function(){
+			ordinalNumber = getPreviousPortionNumber();
+	  		ordinalNumber = validatePortionNumber(ordinalNumber);
+	  		startIndex = calculateStartIndex();
+	  		//console.log("new values for -- ordinalNumber: " + ordinalNumber + ", startIndex: " + startIndex);
+	  	}
+		
+		function getPreviousPortionNumber(){
+	  		return --ordinalNumber;
+	  	}
+		
+		function validatePortionNumber(number){	
+			if (!(number >= PORTION_START_ORDINAL_NUMBER)){
+				return PORTION_START_ORDINAL_NUMBER;
+			}
+			else if (number > PORTION_END_ORDINAL_NUMBER){
+				return PORTION_END_ORDINAL_NUMBER;
+			}
+			else {
+				return number;
+			}
+			
+		}
+		
+		function calculateStartIndex(){
+			return ordinalNumber*size;
+		}
+  }
+    
+  var dataPortion = new DataPortion(aggregateData);
+</script>

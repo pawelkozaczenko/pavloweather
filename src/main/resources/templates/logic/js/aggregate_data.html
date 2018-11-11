@@ -1,0 +1,25 @@
+<script type="text/javascript" th:fragment="content" xmlns:th="http://www.thymeleaf.org" th:inline="text"> 
+  var aggregateData = {
+		<!-- /* @Todo: unify four time repeating for each blocks */ --> 
+		labels:	[
+			<th:block th:each="item : ${apiData.getDailyUnits()}">
+			   "[[${item.getFormattedDate()}]]"[[(${apiData.getDailyUnits().indexOf(item)} lt ${apiData.getDailyUnits().size() - 1}) ? ',' : '']]	
+			 </th:block>
+		],
+		humidity: [
+			<th:block th:each="item : ${apiData.getDailyUnits()}">
+		 		[[${item.getHumidity()}]][[(${apiData.getDailyUnits().indexOf(item)} lt ${apiData.getDailyUnits().size() - 1}) ? ',' : '']]	
+		 	</th:block>
+		],
+		temperature: [
+		    <th:block th:each="item : ${apiData.getDailyUnits()}">
+		 		[[${item.getTemperature()}]][[(${apiData.getDailyUnits().indexOf(item)} lt ${apiData.getDailyUnits().size() - 1}) ? ',' : '']]	
+		 	</th:block>
+		],
+		pressure: [
+			<th:block th:each="item : ${apiData.getDailyUnits()}">
+		 		[[${item.getPressure()}]][[(${apiData.getDailyUnits().indexOf(item)} lt ${apiData.getDailyUnits().size() - 1}) ? ',' : '']]	
+		 	</th:block>
+		]
+ }
+</script>

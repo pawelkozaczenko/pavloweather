@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/webjars/bootstrap/4.0.0-alpha/css/bootstrap.min.css" 
+    th:href="@{/webjars/bootstrap/4.0.0-alpha/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/css/index.css" th:href="@{css/index.css}"/>
+</head>
+<body>
+  <img id="background" src="../static/images/flash.jpg" th:src="@{images/flash.jpg}"/>
+  <div class="container">
+      <object th:remove="tag" th:replace="logic/html/menu :: content" />
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1></h1>
+        <p>This is weather forcecast application, or more precisely a mock of it. One can choose among three cities (London, New York, Washington) by clicking proper position on menu. It has been build on top of Spring Boot MVC, Spring Crud Repository, Hibernate, Chart.js, Boostrap and Jquery. The data are taken from Open Weather Map Api.</p>
+        <p>
+          <a class="btn btn-lg btn-primary" href="https://openweathermap.org/api" role="button">Go to the Weather Map Api</a>
+        </p>
+        Enjoy :)
+      </div>
+    </div> <!-- /container -->
+   
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/3.1.1/jquery.min.js" th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="http://cdn.jsdelivr.net/webjars/bootstrap/4.0.0-alpha/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.0.0-alpha/js/bootstrap.min.js}"></script>
+</body>
+</html>

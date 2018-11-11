@@ -1,0 +1,15 @@
+<ul class="nav nav-pills nav-fill" th:fragment="content" xmlns:th="http://www.thymeleaf.org" >
+	<li class="nav-item">
+		<a class="nav-link active" href="/home">Home</a>
+	</li>
+	<li class="nav-item">
+        <a class="nav-link default" th:href="@{/city(city_name='london',country_code='GB')}">
+          London</a>
+	</li>
+	<li class="nav-item">
+        <a class="nav-link default" href="/city?city_name=newyork&amp;country_code=US">New York</a>
+	</li>
+	<li class="nav-item">
+         <a class="nav-link default" href="/city?city_name=washington&amp;country_code=US">Washingtom</a>
+    </li>
+</ul>

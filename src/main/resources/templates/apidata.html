@@ -1,0 +1,98 @@
+<script type="text/javascript" th:fragment="core" xmlns:th="http://www.thymeleaf.org" th:inline="text"> 
+  var aggrregateData = {
+		<!-- /* @Todo: unify four time repeating for each blocks */ --> 
+		labels:	[
+			<th:block th:each="item : ${apiData.getDailyUnits()}">
+			   "[[${item.getFormattedDate()}]]"[[(${apiData.getDailyUnits().indexOf(item)} lt ${apiData.getDailyUnits().size() - 1}) ? ',' : '']]	
+			 </th:block>
+		],
+		humidity: [
+			<th:block th:each="item : ${apiData.getDailyUnits()}">
+		 		[[${item.getHumidity()}]][[(${apiData.getDailyUnits().indexOf(item)} lt ${apiData.getDailyUnits().size() - 1}) ? ',' : '']]	
+		 	</th:block>
+		],
+		temperature: [
+		    <th:block th:each="item : ${apiData.getDailyUnits()}">
+		 		[[${item.getTemperature()}]][[(${apiData.getDailyUnits().indexOf(item)} lt ${apiData.getDailyUnits().size() - 1}) ? ',' : '']]	
+		 	</th:block>
+		],
+		pressure: [
+			<th:block th:each="item : ${apiData.getDailyUnits()}">
+		 		[[${item.getPressure()}]][[(${apiData.getDailyUnits().indexOf(item)} lt ${apiData.getDailyUnits().size() - 1}) ? ',' : '']]	
+		 	</th:block>
+		]
+		}
+  
+    var portion = 0;
+  
+  	var limit = 10;
+  
+    var dataPortion = {
+    	labels: aggrregateData.labels.slice(0,10),
+    	humidity: aggrregateData.humidity.slice(0,10),
+    	temperature: aggrregateData.temperature.slice(0,10),
+    	pressure: aggrregateData.pressure.slice(0,10),
+    }
+  
+	var chartData = {
+		  labels: dataPortion.labels,
+		  datasets: [{
+		      type: 'bar',
+		      label: 'Humidity',
+		          data: dataPortion.humidity,
+		          backgroundColor: [
+		              'rgba(255, 99, 132, 0.2)',
+		              'rgba(54, 162, 235, 0.2)',
+		              'rgba(255, 206, 86, 0.2)',
+		              'rgba(75, 192, 192, 0.2)',
+		              'rgba(153, 102, 255, 0.2)',
+		              'rgba(255, 159, 64, 0.2)',
+		              'rgba(0, 255, 255, 0.2)'
+		               
+		          ],
+		          borderColor: [
+		              'rgba(255,99,132,1)',
+		              'rgba(54, 162, 235, 1)',
+		              'rgba(255, 206, 86, 1)',
+		              'rgba(75, 192, 192, 1)',
+		              'rgba(153, 102, 255, 1)',
+		              'rgba(255, 159, 64, 1)',
+		              'rgba(0, 255, 255, 1)'
+		          ],
+		          borderWidth: 1
+		  }, {
+		      type: 'line',
+		      label: 'Temperature',
+		      backgroundColor: 'rgba(255,0,0,0.4)',
+		      data: dataPortion.temperature,
+		      borderColor: 'white',
+		      borderWidth: 2
+		  }, {
+		      type: 'line',
+		      label: 'Pressure',
+		      backgroundColor: 'rgba(0,255,0,0.6)',
+		      data: dataPortion.pressure
+		  }]
+		};
+		
+		window.onload = function() {
+	     console.log("hello");
+	     console.log(JSON.stringify(dataPortion));
+		  var ctx = document.getElementById("myChart").getContext("2d");
+		  window.myMixedChart = new Chart(ctx, {
+		      type: 'bar',
+		      data: chartData,
+		      options: {
+		          responsive: true,
+		          title: {
+		              display: true,
+		              text: 'Week Weather Forecast'
+		          },
+		          tooltips: {
+		              mode: 'index',
+		              intersect: true
+		          }
+		      }
+		  });
+		};
+  </script>

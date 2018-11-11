@@ -1,0 +1,1 @@
+INSERT INTO api_usage (id, first, last, visits) VALUES (0, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 0);

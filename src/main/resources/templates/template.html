@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Weather App</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/webjars/bootstrap/4.0.0-alpha/css/bootstrap.min.css" 
+    th:href="@{/webjars/bootstrap/4.0.0-alpha/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../static/css/index.css" th:href="@{css/index.css}"/>
+    <link rel="stylesheet" href="../static/css/template.css" th:href="@{css/template/main.css}"/>
+    <link rel="stylesheet" href="../static/css/template.css" th:href="@{css/template/arrows.css}"/>
+</head>
+<body>
+	<div class="container">
+	  <object th:remove="tag" th:replace="logic/html/menu :: content" />	
+      <div class="jumbotron">
+        <object th:remove="tag" th:replace="logic/html/current_weather_mock :: content" />
+        <div class="basic">
+	        <button type="button" class="btn btn-info btn-arrow-left">Prev</button>
+			<button type="button" class="btn btn-display"></button>
+			<button type="button" class="btn btn-success btn-arrow-right">Next</button>
+        </div>
+        <div class="basic">
+        	<!-- @TODO: add  left and right label in svg -->
+        	<!--<div class="leftAxisWrapper">
+	        	<svg version="1.2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="left-axis" aria-labelledby="title" role="img">	 
+					<g class="grid y-grid" id="yGrid">
+					  <line x1="90" x2="705" y1="370" y2="370"></line>
+					</g>
+					<g class="labels y-labels">
+					  <text x="80" y="15">15</text>
+					  <text x="80" y="131">10</text>
+					  <text x="80" y="248">5</text>
+					  <text x="80" y="373">0</text>
+					  <text x="50" y="200" class="label-title">Price</text>
+					</g>
+				</svg>
+			</div>-->
+        	<div class="chartOuterWrapper">
+        		<div class="chartInnerWrapper">
+        			<canvas id="myChart" width="800" height="500"></canvas>
+        		</div>
+        	</div>
+        </div>
+      </div>
+    </div> 
+    <!-- /container -->
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/3.1.1/jquery.min.js" th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="http://cdn.jsdelivr.net/webjars/bootstrap/4.0.0-alpha/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.0.0-alpha/js/bootstrap.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <object th:remove="tag" th:replace="logic/js/aggregate_data_mock :: content" />
+    <object th:remove="tag" th:replace="logic/js/narrow_data :: content" />
+    <object th:remove="tag" th:replace="logic/js/display_data :: content" />
+    <object th:remove="tag" th:replace="logic/js/event_handler :: content" />
+</body>
+</html>

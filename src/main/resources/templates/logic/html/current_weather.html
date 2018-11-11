@@ -1,0 +1,8 @@
+<div class="basic" th:fragment="content" xmlns:th="http://www.thymeleaf.org">
+	<h1 th:text="${apiData.getCityName()}" />
+	<h3 th:text="'Today'" />
+    <h4 th:text="'Temperature ' + ${apiData.getTemperature()} + ' &#8457;'" />
+    <h4 th:text="'Humidity, ' + ${apiData.getHumidity()} + ' &#37;'" />
+    <h4 th:text="'Pressure, ' + ${apiData.getPressure()} + ' Pa'" />
+    <h3 th:text="'Weather Forcast'" />
+</div>
